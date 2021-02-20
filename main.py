@@ -31,9 +31,9 @@ async def start(r: Request):
 @app.post("/move", response_model=MoveResponse)
 async def move(r: Request):
     # Line 1: find enemy
-    s=r.board.snakes; e=s[0] if len(s)==1 else s[0] if s[0].id!=r.you.id else s[1]
+    s=r.board.snakes; e=0 if len(s)==1 else s[0] if s[0].id!=r.you.id else s[1]
     # Line 2: decide if we want to go for enemy or food
-    m=[]; a=r.you.head; h=r.you.health; g='f' if h<=40 else 's'
+    m=[]; a=r.you.head; h=r.you.health; g='s' if h>40 and len(s)>1 else 'f'
     # Line 3: store target position
     t=e.head if g=='s' else r.board.food[0]; dx=t.x-a.x; dy=t.y-a.y
     # Line 4: get direction to target
