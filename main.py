@@ -38,7 +38,7 @@ async def move(r: Request):
     t=e.head if g=='s' else r.board.food[0]; dx=t.x-a.x; dy=t.y-a.y
     # Line 4: get direction to target
     m.append('right') if dx>0 else m.append('left')
-    # Line 5: return move
+    # Line 5: finish getting direction logic and return move
     m.append('up') if dy>0 else m.append('down');return{"move":random.choice(m)}
 
 
