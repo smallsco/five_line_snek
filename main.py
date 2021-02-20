@@ -17,8 +17,8 @@ async def root():
         "apiversion": "1",
         "author": "smallsco",
         "color": "#36688D",
-        "head": "bwc-snowman",
-        "tail": "bwc-bonhomme",
+        "head": "snowman",
+        "tail": "bonhomme",
         "version": app.version
     }
 
@@ -31,6 +31,7 @@ async def start(r: Request):
 @app.post("/move", response_model=MoveResponse)
 async def move(r: Request):
     # Line 1: find enemy
+    print(r.board.snakes)
     s=r.board.snakes; e=s[0] if s[0].id != r.you.id else s[1]
     # Line 2: decide if we want to go for enemy or food
     m=[]; a=r.you.head; h=r.you.health; g='f' if h<=40 else 's'
