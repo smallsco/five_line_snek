@@ -1,6 +1,8 @@
 import random
 import uvicorn
 from fastapi import FastAPI
+from fastapi.exceptions import RequestValidationError
+from fastapi.exception_handlers import request_validation_exception_handler
 from models import MoveResponse, Request, RootResponse
 
 app = FastAPI(
@@ -9,6 +11,13 @@ app = FastAPI(
     version="1.0.0",
     redoc_url=None
 )
+
+
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request, exc):
+    print(exc.body)
+    print(str(exc))
+    return await request_validation_exception_handler(request, exc)
 
 
 @app.get("/", response_model=RootResponse)
